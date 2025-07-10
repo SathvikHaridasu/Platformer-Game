@@ -12,6 +12,7 @@ body {
     align-items: center;
     min-height: 100vh;
     overflow: hidden;
+    animation: backgroundShift 10s ease-in-out infinite;
 }
 
 #gameContainer {
@@ -19,14 +20,18 @@ body {
     width: 1280px;
     height: 720px;
     background: #000;
-    border-radius: 10px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
     overflow: hidden;
+    border: 3px solid rgba(255, 255, 255, 0.1);
 }
 
 #gameCanvas {
     display: block;
-    background: #87CEEB;
+    background: linear-gradient(to bottom, #87CEEB 0%, #98D8E8 50%, #B0E0E6 100%);
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
 }
 
 .menu {
@@ -35,54 +40,79 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.9);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(20, 20, 40, 0.95) 100%);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     color: white;
     z-index: 100;
+    backdrop-filter: blur(10px);
 }
 
 .menu h1 {
-    font-size: 3.5rem;
+    font-size: 4rem;
     margin-bottom: 2rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffd93d);
     background-size: 400% 400%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: gradientShift 3s ease-in-out infinite;
+    font-weight: bold;
+    letter-spacing: 2px;
 }
 
 .menu h2 {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     margin-bottom: 1.5rem;
     color: #4ecdc4;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-weight: bold;
 }
 
 .menuBtn {
     background: linear-gradient(45deg, #667eea, #764ba2);
     color: white;
     border: none;
-    padding: 15px 30px;
-    margin: 10px;
-    font-size: 1.2rem;
-    border-radius: 25px;
+    padding: 18px 35px;
+    margin: 12px;
+    font-size: 1.3rem;
+    border-radius: 30px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    min-width: 200px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    min-width: 220px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.menuBtn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.menuBtn:hover::before {
+    left: 100%;
 }
 
 .menuBtn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
     background: linear-gradient(45deg, #764ba2, #667eea);
 }
 
 .menuBtn:active {
-    transform: translateY(0);
+    transform: translateY(-1px) scale(1.02);
 }
 
 .hidden {
@@ -93,61 +123,101 @@ body {
 #skinGrid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    margin: 20px 0;
-    max-width: 600px;
+    gap: 25px;
+    margin: 25px 0;
+    max-width: 650px;
 }
 
 .skinItem {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    padding: 20px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border-radius: 20px;
+    padding: 25px;
     text-align: center;
     border: 2px solid transparent;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.skinItem::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+}
+
+.skinItem:hover::before {
+    transform: translateX(100%);
 }
 
 .skinItem:hover {
     border-color: #4ecdc4;
-    transform: scale(1.05);
+    transform: scale(1.08);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
 }
 
 .skinItem.locked {
-    opacity: 0.6;
-    filter: grayscale(50%);
+    opacity: 0.7;
+    filter: grayscale(60%);
 }
 
 .skinPreview {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto 10px;
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 15px;
     border-radius: 50%;
     background: #333;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
+    font-size: 2.5rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
 }
 
-.skinPreview[data-skin="0"] { background: #ff6b6b; }
-.skinPreview[data-skin="1"] { background: #4ecdc4; }
-.skinPreview[data-skin="2"] { background: #45b7d1; }
-.skinPreview[data-skin="3"] { background: #96ceb4; }
+.skinPreview[data-skin="0"] { 
+    background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+}
+.skinPreview[data-skin="1"] { 
+    background: linear-gradient(45deg, #4ecdc4, #44a08d);
+    box-shadow: 0 8px 20px rgba(78, 205, 196, 0.4);
+}
+.skinPreview[data-skin="2"] { 
+    background: linear-gradient(45deg, #45b7d1, #2980b9);
+    box-shadow: 0 8px 20px rgba(69, 183, 209, 0.4);
+}
+.skinPreview[data-skin="3"] { 
+    background: linear-gradient(45deg, #96ceb4, #7fb069);
+    box-shadow: 0 8px 20px rgba(150, 206, 180, 0.4);
+}
 
 .buyBtn, .equipBtn {
     background: linear-gradient(45deg, #ff6b6b, #ee5a24);
     color: white;
     border: none;
-    padding: 8px 16px;
-    border-radius: 15px;
+    padding: 12px 20px;
+    border-radius: 20px;
     cursor: pointer;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
+    font-size: 1rem;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .buyBtn:hover {
     background: linear-gradient(45deg, #ee5a24, #ff6b6b);
-    transform: scale(1.05);
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
 .equipBtn {
@@ -156,68 +226,105 @@ body {
 
 .equipBtn:hover {
     background: linear-gradient(45deg, #44a08d, #4ecdc4);
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
 .coinDisplay {
-    font-size: 1.5rem;
-    margin: 20px 0;
+    font-size: 1.8rem;
+    margin: 25px 0;
     color: #ffd700;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    font-weight: bold;
+    background: linear-gradient(45deg, #ffd700, #ffed4e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: coinGlow 2s ease-in-out infinite alternate;
 }
 
 /* Level Select Styles */
 #levelGrid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin: 20px 0;
-    max-width: 600px;
+    gap: 25px;
+    margin: 25px 0;
+    max-width: 650px;
 }
 
 .levelItem {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    padding: 20px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border-radius: 20px;
+    padding: 25px;
     text-align: center;
     border: 2px solid transparent;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.levelItem::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+}
+
+.levelItem:hover:not(.locked)::before {
+    transform: translateX(100%);
 }
 
 .levelItem:hover:not(.locked) {
     border-color: #4ecdc4;
-    transform: scale(1.05);
+    transform: scale(1.08);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
 }
 
 .levelItem.locked {
     opacity: 0.6;
-    filter: grayscale(50%);
+    filter: grayscale(70%);
 }
 
 .levelItem h3 {
     color: #4ecdc4;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .playLevelBtn {
     background: linear-gradient(45deg, #4ecdc4, #44a08d);
     color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 15px;
+    padding: 12px 25px;
+    border-radius: 20px;
     cursor: pointer;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    margin-top: 10px;
+    font-size: 1.1rem;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    margin-top: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .playLevelBtn:hover:not(:disabled) {
     background: linear-gradient(45deg, #44a08d, #4ecdc4);
-    transform: scale(1.05);
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
 .playLevelBtn:disabled {
     background: #666;
     cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
 
 /* Game HUD Styles */
@@ -233,47 +340,55 @@ body {
 
 .hudTop {
     position: absolute;
-    top: 20px;
-    left: 20px;
-    right: 20px;
+    top: 25px;
+    left: 25px;
+    right: 25px;
     display: flex;
     justify-content: space-between;
     pointer-events: none;
 }
 
 .hudLeft, .hudRight {
-    background: rgba(0, 0, 0, 0.7);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(20, 20, 40, 0.8) 100%);
     color: white;
-    padding: 10px 20px;
-    border-radius: 20px;
-    font-size: 1.2rem;
+    padding: 15px 25px;
+    border-radius: 25px;
+    font-size: 1.3rem;
     font-weight: bold;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
     pointer-events: auto;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
 .hudLeft span, .hudRight span {
-    margin-right: 20px;
+    margin-right: 25px;
+    color: #4ecdc4;
 }
 
 .pauseBtn {
     position: absolute;
-    top: 20px;
-    right: 20px;
-    background: rgba(0, 0, 0, 0.7);
+    top: 25px;
+    right: 25px;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(20, 20, 40, 0.8) 100%);
     color: white;
     border: none;
-    padding: 10px;
+    padding: 15px;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 1.5rem;
-    transition: all 0.3s ease;
+    font-size: 1.8rem;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     pointer-events: auto;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
 .pauseBtn:hover {
-    background: rgba(0, 0, 0, 0.9);
-    transform: scale(1.1);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(40, 40, 60, 0.9) 100%);
+    transform: scale(1.15);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
 }
 
 /* Animations */
@@ -281,6 +396,17 @@ body {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
+}
+
+@keyframes backgroundShift {
+    0% { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    50% { background: linear-gradient(135deg, #764ba2 0%, #667eea 100%); }
+    100% { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+}
+
+@keyframes coinGlow {
+    0% { filter: brightness(1) drop-shadow(0 0 5px rgba(255, 215, 0, 0.5)); }
+    100% { filter: brightness(1.2) drop-shadow(0 0 15px rgba(255, 215, 0, 0.8)); }
 }
 
 /* Responsive Design */
@@ -296,17 +422,17 @@ body {
     }
     
     .menu h1 {
-        font-size: 2.5rem;
+        font-size: 3rem;
     }
     
     .menu h2 {
-        font-size: 2rem;
+        font-size: 2.2rem;
     }
     
     .menuBtn {
-        padding: 12px 24px;
-        font-size: 1rem;
-        min-width: 150px;
+        padding: 15px 28px;
+        font-size: 1.1rem;
+        min-width: 180px;
     }
 }
 
@@ -317,6 +443,6 @@ body {
     
     #skinGrid, #levelGrid {
         grid-template-columns: 1fr;
-        max-width: 400px;
+        max-width: 450px;
     }
 } 

@@ -23,8 +23,8 @@ class Game {
         this.goal = null;
         
         this.keys = {};
-        this.gravity = 0.8;
-        this.friction = 0.8;
+        this.gravity = 0.6;
+        this.friction = 0.85;
         
         this.camera = { x: 0, y: 0 };
         

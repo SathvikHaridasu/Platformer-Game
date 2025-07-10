@@ -23,6 +23,7 @@ class Game {
         this.goal = null;
         
         this.keys = {};
+        this.keysPressed = {}; // Track keys that were just pressed
         this.gravity = 0.6;
         this.friction = 0.85;
         
@@ -42,6 +43,9 @@ class Game {
     setupEventListeners() {
         // Keyboard events
         document.addEventListener('keydown', (e) => {
+            if (!this.keys[e.code]) {
+                this.keysPressed[e.code] = true; // Mark as just pressed
+            }
             this.keys[e.code] = true;
             if (e.code === 'Escape' && this.gameState === 'playing') {
                 this.pauseGame();
@@ -50,6 +54,7 @@ class Game {
         
         document.addEventListener('keyup', (e) => {
             this.keys[e.code] = false;
+            this.keysPressed[e.code] = false;
         });
         
         // Menu button events
@@ -466,7 +471,12 @@ class Game {
     update() {
         // Update player
         if (this.player) {
-            this.player.update(this.keys, this.platforms, this.movingPlatforms, this.breakablePlatforms, this.gravity, this.friction);
+            this.player.update(this.keys, this.keysPressed, this.platforms, this.movingPlatforms, this.breakablePlatforms, this.gravity, this.friction);
+            
+            // Clear key press states after processing
+            this.keysPressed['ArrowUp'] = false;
+            this.keysPressed['KeyW'] = false;
+            this.keysPressed['Space'] = false;
             
             // Check if player fell off screen
             if (this.player.y > this.height + 100) {
@@ -680,7 +690,7 @@ class Player {
         this.isJumping = false;
     }
     
-    update(keys, platforms, movingPlatforms, breakablePlatforms, gravity, friction) {
+    update(keys, keysPressed, platforms, movingPlatforms, breakablePlatforms, gravity, friction) {
         // Handle input
         this.isMoving = false;
         if (keys['ArrowLeft'] || keys['KeyA']) {
@@ -695,8 +705,8 @@ class Player {
             this.velocityX *= friction;
         }
         
-        // Unlimited jump mechanics
-        if (keys['ArrowUp'] || keys['KeyW'] || keys['Space']) {
+        // Unlimited jump mechanics - only on key press, not hold
+        if (keysPressed['ArrowUp'] || keysPressed['KeyW'] || keysPressed['Space']) {
             this.jump();
         }
         

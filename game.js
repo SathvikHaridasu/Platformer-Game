@@ -16,7 +16,7 @@ class Game {
         
         this.player = null;
         this.platforms = [];
-        this.coins = [];
+        this.coinObjects = [];
         this.hazards = [];
         this.movingPlatforms = [];
         this.breakablePlatforms = [];
@@ -27,6 +27,7 @@ class Game {
         this.friction = 0.85;
         
         this.camera = { x: 0, y: 0 };
+        this.particles = [];
         
         this.init();
     }
@@ -313,7 +314,7 @@ class Game {
         
         // Create coins
         levelData.coins.forEach(coin => {
-            this.coins.push(new Coin(coin.x, coin.y));
+            this.coinObjects.push(new Coin(coin.x, coin.y));
         });
         
         // Create hazards
@@ -473,10 +474,11 @@ class Game {
             }
             
             // Check coin collection
-            this.coins = this.coins.filter(coin => {
+            this.coinObjects = this.coinObjects.filter(coin => {
                 if (this.checkCollision(this.player, coin)) {
                     this.coins += 1;
                     this.updateHUD();
+                    this.createCoinParticles(coin.x + coin.width/2, coin.y + coin.height/2);
                     return false;
                 }
                 return true;
@@ -512,9 +514,16 @@ class Game {
     }
     
     render() {
-        // Clear canvas
-        this.ctx.fillStyle = '#87CEEB';
+        // Clear canvas with gradient background
+        const gradient = this.ctx.createLinearGradient(0, 0, 0, this.height);
+        gradient.addColorStop(0, '#87CEEB');
+        gradient.addColorStop(0.5, '#98D8E8');
+        gradient.addColorStop(1, '#B0E0E6');
+        this.ctx.fillStyle = gradient;
         this.ctx.fillRect(0, 0, this.width, this.height);
+        
+        // Draw clouds in background
+        this.drawBackgroundElements();
         
         // Save context for camera transform
         this.ctx.save();
@@ -528,7 +537,7 @@ class Game {
             this.breakablePlatforms.forEach(platform => platform.render(this.ctx));
             
             // Render coins
-            this.coins.forEach(coin => coin.render(this.ctx));
+            this.coinObjects.forEach(coin => coin.render(this.ctx));
             
             // Render hazards
             this.hazards.forEach(hazard => hazard.render(this.ctx));
@@ -542,6 +551,48 @@ class Game {
         
         // Restore context
         this.ctx.restore();
+        
+        // Draw particle effects
+        this.drawParticleEffects();
+    }
+    
+    drawBackgroundElements() {
+        // Draw animated clouds
+        const time = Date.now() * 0.001;
+        for (let i = 0; i < 5; i++) {
+            const x = (time * 20 + i * 300) % (this.width + 200) - 100;
+            const y = 50 + i * 80;
+            this.drawCloud(x, y, 0.8 + i * 0.1);
+        }
+    }
+    
+    drawCloud(x, y, scale) {
+        this.ctx.save();
+        this.ctx.translate(x, y);
+        this.ctx.scale(scale, scale);
+        
+        this.ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+        this.ctx.beginPath();
+        this.ctx.arc(0, 0, 30, 0, Math.PI * 2);
+        this.ctx.arc(25, 0, 25, 0, Math.PI * 2);
+        this.ctx.arc(-25, 0, 25, 0, Math.PI * 2);
+        this.ctx.arc(0, -20, 20, 0, Math.PI * 2);
+        this.ctx.fill();
+        
+        this.ctx.restore();
+    }
+    
+    drawParticleEffects() {
+        // Draw coin collection particles
+        if (this.particles) {
+            this.particles.forEach((particle, index) => {
+                particle.update();
+                particle.render(this.ctx);
+                if (particle.life <= 0) {
+                    this.particles.splice(index, 1);
+                }
+            });
+        }
     }
     
     checkCollision(obj1, obj2) {
@@ -602,6 +653,12 @@ class Game {
             this.completedLevels = gameData.completedLevels || [];
         }
     }
+    
+    createCoinParticles(x, y) {
+        for (let i = 0; i < 8; i++) {
+            this.particles.push(new Particle(x, y, '#FFD700'));
+        }
+    }
 }
 
 // Player Class
@@ -613,28 +670,44 @@ class Player {
         this.height = 60;
         this.velocityX = 0;
         this.velocityY = 0;
-        this.speed = 5;
-        this.jumpPower = 15;
+        this.speed = 6;
+        this.jumpPower = 16;
+        this.maxJumps = 2;
+        this.jumpsLeft = this.maxJumps;
         this.onGround = false;
         this.skin = skin;
         this.direction = 1; // 1 for right, -1 for left
+        this.animationFrame = 0;
+        this.isMoving = false;
+        this.isJumping = false;
     }
     
     update(keys, platforms, movingPlatforms, breakablePlatforms, gravity, friction) {
         // Handle input
+        this.isMoving = false;
         if (keys['ArrowLeft'] || keys['KeyA']) {
             this.velocityX = -this.speed;
             this.direction = -1;
+            this.isMoving = true;
         } else if (keys['ArrowRight'] || keys['KeyD']) {
             this.velocityX = this.speed;
             this.direction = 1;
+            this.isMoving = true;
         } else {
             this.velocityX *= friction;
         }
         
-        if ((keys['ArrowUp'] || keys['KeyW'] || keys['Space']) && this.onGround) {
-            this.velocityY = -this.jumpPower;
-            this.onGround = false;
+        // Enhanced jump mechanics
+        if (keys['ArrowUp'] || keys['KeyW'] || keys['Space']) {
+            if (this.onGround) {
+                // Ground jump - reset jumps and jump
+                this.jumpsLeft = this.maxJumps;
+                this.jump();
+            } else if (this.jumpsLeft > 0) {
+                // Air jump (double jump)
+                this.jumpsLeft--;
+                this.jump();
+            }
         }
         
         // Apply gravity
@@ -643,6 +716,9 @@ class Player {
         // Update position
         this.x += this.velocityX;
         this.y += this.velocityY;
+        
+        // Update animation frame
+        this.animationFrame += 0.2;
         
         // Check collisions
         this.onGround = false;
@@ -653,6 +729,17 @@ class Player {
                 this.handleCollision(platform);
             }
         });
+        
+        // Reset jumping state when on ground
+        if (this.onGround) {
+            this.isJumping = false;
+        }
+    }
+    
+    jump() {
+        this.velocityY = -this.jumpPower;
+        this.isJumping = true;
+        this.onGround = false;
     }
     
     checkCollision(platform) {
@@ -688,25 +775,88 @@ class Player {
     }
     
     render(ctx) {
-        // Draw player based on skin
-        const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4'];
-        ctx.fillStyle = colors[this.skin] || colors[0];
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.save();
         
-        // Draw eyes
+        // Add slight bounce animation when moving
+        let bounceOffset = 0;
+        if (this.isMoving && this.onGround) {
+            bounceOffset = Math.sin(this.animationFrame) * 2;
+        }
+        
+        // Draw shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+        ctx.fillRect(this.x + 5, this.y + this.height + 5, this.width - 10, 8);
+        
+        // Draw player based on skin with gradient
+        const colors = [
+            ['#ff6b6b', '#ee5a24'],
+            ['#4ecdc4', '#44a08d'],
+            ['#45b7d1', '#2980b9'],
+            ['#96ceb4', '#7fb069']
+        ];
+        const colorPair = colors[this.skin] || colors[0];
+        
+        // Create gradient for player
+        const gradient = ctx.createLinearGradient(this.x, this.y, this.x, this.y + this.height);
+        gradient.addColorStop(0, colorPair[0]);
+        gradient.addColorStop(1, colorPair[1]);
+        ctx.fillStyle = gradient;
+        
+        // Draw player body with rounded corners
+        this.roundRect(ctx, this.x, this.y + bounceOffset, this.width, this.height, 8);
+        ctx.fill();
+        
+        // Add highlight
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+        this.roundRect(ctx, this.x + 2, this.y + 2 + bounceOffset, this.width - 4, this.height / 3, 6);
+        ctx.fill();
+        
+        // Draw eyes with animation
         ctx.fillStyle = '#000';
         const eyeSize = 6;
-        const eyeY = this.y + 15;
+        const eyeY = this.y + 15 + bounceOffset;
+        const blinkOffset = Math.sin(this.animationFrame * 0.5) > 0.8 ? 2 : 0;
+        
         if (this.direction === 1) {
-            ctx.fillRect(this.x + 25, eyeY, eyeSize, eyeSize);
-            ctx.fillRect(this.x + 30, eyeY, eyeSize, eyeSize);
+            ctx.fillRect(this.x + 25, eyeY, eyeSize, eyeSize - blinkOffset);
+            ctx.fillRect(this.x + 30, eyeY, eyeSize, eyeSize - blinkOffset);
         } else {
-            ctx.fillRect(this.x + 5, eyeY, eyeSize, eyeSize);
-            ctx.fillRect(this.x + 10, eyeY, eyeSize, eyeSize);
+            ctx.fillRect(this.x + 5, eyeY, eyeSize, eyeSize - blinkOffset);
+            ctx.fillRect(this.x + 10, eyeY, eyeSize, eyeSize - blinkOffset);
         }
         
         // Draw mouth
-        ctx.fillRect(this.x + 15, this.y + 35, 10, 3);
+        if (this.isJumping) {
+            // Open mouth when jumping
+            ctx.fillRect(this.x + 15, this.y + 35 + bounceOffset, 10, 6);
+        } else {
+            ctx.fillRect(this.x + 15, this.y + 35 + bounceOffset, 10, 3);
+        }
+        
+        // Draw jump indicator
+        if (this.jumpsLeft < this.maxJumps) {
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            ctx.fillRect(this.x + this.width + 5, this.y + 10, 4, 4);
+            if (this.jumpsLeft > 0) {
+                ctx.fillRect(this.x + this.width + 5, this.y + 20, 4, 4);
+            }
+        }
+        
+        ctx.restore();
+    }
+    
+    roundRect(ctx, x, y, width, height, radius) {
+        ctx.beginPath();
+        ctx.moveTo(x + radius, y);
+        ctx.lineTo(x + width - radius, y);
+        ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+        ctx.lineTo(x + width, y + height - radius);
+        ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+        ctx.lineTo(x + radius, y + height);
+        ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+        ctx.lineTo(x, y + radius);
+        ctx.quadraticCurveTo(x, y, x + radius, y);
+        ctx.closePath();
     }
 }
 
@@ -720,11 +870,40 @@ class Platform {
     }
     
     render(ctx) {
-        ctx.fillStyle = '#8B4513';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        // Create gradient for platform
+        const gradient = ctx.createLinearGradient(this.x, this.y, this.x, this.y + this.height);
+        gradient.addColorStop(0, '#8B4513');
+        gradient.addColorStop(1, '#654321');
+        ctx.fillStyle = gradient;
+        
+        // Draw platform with rounded corners
+        this.roundRect(ctx, this.x, this.y, this.width, this.height, 5);
+        ctx.fill();
+        
+        // Add highlight
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+        this.roundRect(ctx, this.x + 2, this.y + 2, this.width - 4, this.height / 2, 3);
+        ctx.fill();
+        
+        // Add border
         ctx.strokeStyle = '#654321';
         ctx.lineWidth = 2;
-        ctx.strokeRect(this.x, this.y, this.width, this.height);
+        this.roundRect(ctx, this.x, this.y, this.width, this.height, 5);
+        ctx.stroke();
+    }
+    
+    roundRect(ctx, x, y, width, height, radius) {
+        ctx.beginPath();
+        ctx.moveTo(x + radius, y);
+        ctx.lineTo(x + width - radius, y);
+        ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+        ctx.lineTo(x + width, y + height - radius);
+        ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+        ctx.lineTo(x + radius, y + height);
+        ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+        ctx.lineTo(x, y + radius);
+        ctx.quadraticCurveTo(x, y, x + radius, y);
+        ctx.closePath();
     }
 }
 
@@ -748,11 +927,27 @@ class MovingPlatform extends Platform {
     }
     
     render(ctx) {
-        ctx.fillStyle = '#FF6347';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        // Create gradient for moving platform
+        const gradient = ctx.createLinearGradient(this.x, this.y, this.x, this.y + this.height);
+        gradient.addColorStop(0, '#FF6347');
+        gradient.addColorStop(1, '#8B0000');
+        ctx.fillStyle = gradient;
+        
+        // Draw platform with rounded corners
+        this.roundRect(ctx, this.x, this.y, this.width, this.height, 5);
+        ctx.fill();
+        
+        // Add moving indicator
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+        for (let i = 0; i < this.width; i += 15) {
+            ctx.fillRect(this.x + i, this.y + 5, 8, 2);
+        }
+        
+        // Add border
         ctx.strokeStyle = '#8B0000';
         ctx.lineWidth = 2;
-        ctx.strokeRect(this.x, this.y, this.width, this.height);
+        this.roundRect(ctx, this.x, this.y, this.width, this.height, 5);
+        ctx.stroke();
     }
 }
 
@@ -784,24 +979,45 @@ class Coin {
     }
     
     render(ctx) {
-        this.animationFrame += 0.1;
-        const scale = 1 + Math.sin(this.animationFrame) * 0.1;
+        this.animationFrame += 0.15;
+        const scale = 1 + Math.sin(this.animationFrame) * 0.15;
+        const rotation = this.animationFrame * 0.5;
         
         ctx.save();
         ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
         ctx.scale(scale, scale);
+        ctx.rotate(rotation);
         
-        ctx.fillStyle = '#FFD700';
+        // Create gradient for coin
+        const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, 12);
+        gradient.addColorStop(0, '#FFD700');
+        gradient.addColorStop(0.7, '#FFA500');
+        gradient.addColorStop(1, '#FF8C00');
+        
+        ctx.fillStyle = gradient;
         ctx.beginPath();
-        ctx.arc(0, 0, 10, 0, Math.PI * 2);
+        ctx.arc(0, 0, 12, 0, Math.PI * 2);
         ctx.fill();
         
+        // Add shine effect
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+        ctx.beginPath();
+        ctx.arc(-3, -3, 4, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Add coin symbol
+        ctx.fillStyle = '#FF8C00';
+        ctx.fillRect(-1.5, -6, 3, 12);
+        ctx.fillRect(-6, -1.5, 12, 3);
+        
+        // Add glow effect
+        ctx.shadowColor = '#FFD700';
+        ctx.shadowBlur = 10;
         ctx.strokeStyle = '#FFA500';
         ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(0, 0, 12, 0, Math.PI * 2);
         ctx.stroke();
-        
-        ctx.fillStyle = '#FFA500';
-        ctx.fillRect(-2, -8, 4, 16);
         
         ctx.restore();
     }
@@ -862,6 +1078,38 @@ class Goal {
             const sparkleY = this.y + Math.cos(this.animationFrame + i) * 30;
             ctx.fillRect(sparkleX, sparkleY, 3, 3);
         }
+    }
+}
+
+// Particle class for visual effects
+class Particle {
+    constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.vx = (Math.random() - 0.5) * 8;
+        this.vy = (Math.random() - 0.5) * 8 - 2;
+        this.color = color;
+        this.life = 1.0;
+        this.decay = 0.02;
+        this.size = Math.random() * 4 + 2;
+    }
+    
+    update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.vy += 0.1; // gravity
+        this.life -= this.decay;
+        this.size *= 0.98;
+    }
+    
+    render(ctx) {
+        ctx.save();
+        ctx.globalAlpha = this.life;
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
     }
 }
 

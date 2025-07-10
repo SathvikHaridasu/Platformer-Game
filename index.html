@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2D Platformer Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas" width="1280" height="720"></canvas>
+        
+        <!-- Main Menu -->
+        <div id="mainMenu" class="menu">
+            <h1>2D Platformer</h1>
+            <button id="startGameBtn" class="menuBtn">Start Game</button>
+            <button id="skinShopBtn" class="menuBtn">Skin Shop</button>
+            <button id="levelSelectBtn" class="menuBtn">Level Select</button>
+            <button id="quitGameBtn" class="menuBtn">Quit Game</button>
+        </div>
+
+        <!-- Skin Shop -->
+        <div id="skinShop" class="menu hidden">
+            <h2>Skin Shop</h2>
+            <div id="skinGrid">
+                <div class="skinItem" data-skin="0">
+                    <div class="skinPreview" id="skin0"></div>
+                    <p>Default</p>
+                    <button class="equipBtn" data-skin="0">Equip</button>
+                </div>
+                <div class="skinItem" data-skin="1">
+                    <div class="skinPreview" id="skin1"></div>
+                    <p>Ninja (50 coins)</p>
+                    <button class="buyBtn" data-skin="1" data-cost="50">Buy</button>
+                </div>
+                <div class="skinItem" data-skin="2">
+                    <div class="skinPreview" id="skin2"></div>
+                    <p>Robot (100 coins)</p>
+                    <button class="buyBtn" data-skin="2" data-cost="100">Buy</button>
+                </div>
+                <div class="skinItem" data-skin="3">
+                    <div class="skinPreview" id="skin3"></div>
+                    <p>Wizard (200 coins)</p>
+                    <button class="buyBtn" data-skin="3" data-cost="200">Buy</button>
+                </div>
+            </div>
+            <div class="coinDisplay">
+                <span>Coins: <span id="shopCoins">0</span></span>
+            </div>
+            <button id="backToMainBtn" class="menuBtn">Back to Main Menu</button>
+        </div>
+
+        <!-- Level Select -->
+        <div id="levelSelect" class="menu hidden">
+            <h2>Level Select</h2>
+            <div id="levelGrid">
+                <div class="levelItem" data-level="1">
+                    <h3>Level 1</h3>
+                    <p>Tutorial</p>
+                    <button class="playLevelBtn" data-level="1">Play</button>
+                </div>
+                <div class="levelItem locked" data-level="2">
+                    <h3>Level 2</h3>
+                    <p>Intermediate</p>
+                    <button class="playLevelBtn" data-level="2" disabled>Locked</button>
+                </div>
+                <div class="levelItem locked" data-level="3">
+                    <h3>Level 3</h3>
+                    <p>Advanced</p>
+                    <button class="playLevelBtn" data-level="3" disabled>Locked</button>
+                </div>
+            </div>
+            <button id="backToMainFromLevelBtn" class="menuBtn">Back to Main Menu</button>
+        </div>
+
+        <!-- Game HUD -->
+        <div id="gameHUD" class="hidden">
+            <div class="hudTop">
+                <div class="hudLeft">
+                    <span>Level: <span id="currentLevel">1</span></span>
+                    <span>Lives: <span id="lives">3</span></span>
+                </div>
+                <div class="hudRight">
+                    <span>Coins: <span id="gameCoins">0</span></span>
+                </div>
+            </div>
+            <button id="pauseBtn" class="pauseBtn">⏸️</button>
+        </div>
+
+        <!-- Pause Menu -->
+        <div id="pauseMenu" class="menu hidden">
+            <h2>Game Paused</h2>
+            <button id="resumeBtn" class="menuBtn">Resume</button>
+            <button id="restartBtn" class="menuBtn">Restart Level</button>
+            <button id="mainMenuBtn" class="menuBtn">Main Menu</button>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="gameOverScreen" class="menu hidden">
+            <h2>Game Over</h2>
+            <p>You ran out of lives!</p>
+            <button id="restartGameBtn" class="menuBtn">Restart Game</button>
+            <button id="mainMenuFromGameOverBtn" class="menuBtn">Main Menu</button>
+        </div>
+
+        <!-- Level Complete Screen -->
+        <div id="levelCompleteScreen" class="menu hidden">
+            <h2>Level Complete!</h2>
+            <p>Coins collected: <span id="levelCoinsCollected">0</span></p>
+            <button id="nextLevelBtn" class="menuBtn">Next Level</button>
+            <button id="mainMenuFromCompleteBtn" class="menuBtn">Main Menu</button>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html> 

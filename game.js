@@ -287,7 +287,7 @@ class Game {
     
     loadLevel(levelNumber) {
         this.platforms = [];
-        this.coins = [];
+        this.coinObjects = [];
         this.hazards = [];
         this.movingPlatforms = [];
         this.breakablePlatforms = [];
@@ -672,8 +672,6 @@ class Player {
         this.velocityY = 0;
         this.speed = 6;
         this.jumpPower = 16;
-        this.maxJumps = 2;
-        this.jumpsLeft = this.maxJumps;
         this.onGround = false;
         this.skin = skin;
         this.direction = 1; // 1 for right, -1 for left
@@ -697,17 +695,9 @@ class Player {
             this.velocityX *= friction;
         }
         
-        // Enhanced jump mechanics
+        // Unlimited jump mechanics
         if (keys['ArrowUp'] || keys['KeyW'] || keys['Space']) {
-            if (this.onGround) {
-                // Ground jump - reset jumps and jump
-                this.jumpsLeft = this.maxJumps;
-                this.jump();
-            } else if (this.jumpsLeft > 0) {
-                // Air jump (double jump)
-                this.jumpsLeft--;
-                this.jump();
-            }
+            this.jump();
         }
         
         // Apply gravity
@@ -833,14 +823,11 @@ class Player {
             ctx.fillRect(this.x + 15, this.y + 35 + bounceOffset, 10, 3);
         }
         
-        // Draw jump indicator
-        if (this.jumpsLeft < this.maxJumps) {
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-            ctx.fillRect(this.x + this.width + 5, this.y + 10, 4, 4);
-            if (this.jumpsLeft > 0) {
-                ctx.fillRect(this.x + this.width + 5, this.y + 20, 4, 4);
-            }
-        }
+        // Draw unlimited jump indicator
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+        ctx.fillRect(this.x + this.width + 5, this.y + 10, 4, 4);
+        ctx.fillRect(this.x + this.width + 5, this.y + 20, 4, 4);
+        ctx.fillRect(this.x + this.width + 5, this.y + 30, 4, 4);
         
         ctx.restore();
     }

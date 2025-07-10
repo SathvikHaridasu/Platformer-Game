@@ -180,6 +180,30 @@ body {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     border: 3px solid rgba(255, 255, 255, 0.2);
     transition: all 0.3s ease;
+    position: relative;
+}
+
+.skinPreview::before {
+    content: '👤';
+    font-size: 2rem;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.skinPreview[data-skin="0"]::before {
+    content: '😀';
+}
+
+.skinPreview[data-skin="1"]::before {
+    content: '🥷';
+}
+
+.skinPreview[data-skin="2"]::before {
+    content: '🤖';
+}
+
+.skinPreview[data-skin="3"]::before {
+    content: '🧙‍♂️';
 }
 
 .skinPreview[data-skin="0"] { 

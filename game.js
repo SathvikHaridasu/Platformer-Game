@@ -942,58 +942,108 @@ class Player {
         ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
         ctx.fillRect(this.x + 5, this.y + this.height + 5, this.width - 10, 8);
         
-        // Draw player based on skin with gradient
-        const colors = [
-            ['#ff6b6b', '#ee5a24'],
-            ['#4ecdc4', '#44a08d'],
-            ['#45b7d1', '#2980b9'],
-            ['#96ceb4', '#7fb069']
-        ];
-        const colorPair = colors[this.skin] || colors[0];
-        
-        // Create gradient for player
-        const gradient = ctx.createLinearGradient(this.x, this.y, this.x, this.y + this.height);
-        gradient.addColorStop(0, colorPair[0]);
-        gradient.addColorStop(1, colorPair[1]);
-        ctx.fillStyle = gradient;
-        
-        // Draw player body with rounded corners
-        this.roundRect(ctx, this.x, this.y + bounceOffset, this.width, this.height, 8);
-        ctx.fill();
-        
-        // Add highlight
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
-        this.roundRect(ctx, this.x + 2, this.y + 2 + bounceOffset, this.width - 4, this.height / 3, 6);
-        ctx.fill();
-        
-        // Draw eyes with animation
-        ctx.fillStyle = '#000';
-        const eyeSize = 6;
-        const eyeY = this.y + 15 + bounceOffset;
-        const blinkOffset = Math.sin(this.animationFrame * 0.5) > 0.8 ? 2 : 0;
-        
-        if (this.direction === 1) {
-            ctx.fillRect(this.x + 25, eyeY, eyeSize, eyeSize - blinkOffset);
-            ctx.fillRect(this.x + 30, eyeY, eyeSize, eyeSize - blinkOffset);
+        // Draw player based on skin
+        if (this.skin === 0) {
+            // Default skin: modern, glossy, expressive
+            // Outer outline
+            ctx.save();
+            ctx.shadowColor = 'rgba(0,0,0,0.25)';
+            ctx.shadowBlur = 8;
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = '#b03a2e';
+            this.roundRect(ctx, this.x, this.y + bounceOffset, this.width, this.height, 12);
+            ctx.stroke();
+            ctx.restore();
+
+            // Body gradient
+            const grad = ctx.createLinearGradient(this.x, this.y, this.x, this.y + this.height);
+            grad.addColorStop(0, '#ffb3b3');
+            grad.addColorStop(0.5, '#ff6b6b');
+            grad.addColorStop(1, '#e74c3c');
+            ctx.fillStyle = grad;
+            this.roundRect(ctx, this.x, this.y + bounceOffset, this.width, this.height, 12);
+            ctx.fill();
+
+            // Glossy highlight
+            ctx.save();
+            ctx.globalAlpha = 0.25;
+            ctx.fillStyle = '#fff';
+            this.roundRect(ctx, this.x + 4, this.y + 4 + bounceOffset, this.width - 8, this.height / 3, 10);
+            ctx.fill();
+            ctx.restore();
+
+            // Eyes (rounded, expressive)
+            ctx.save();
+            ctx.fillStyle = '#222';
+            ctx.beginPath();
+            ctx.ellipse(this.x + 15, this.y + 22 + bounceOffset, 7, 5, 0, 0, Math.PI * 2);
+            ctx.ellipse(this.x + 28, this.y + 22 + bounceOffset, 7, 5, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+
+            // Eye shine
+            ctx.save();
+            ctx.fillStyle = '#fff';
+            ctx.globalAlpha = 0.5;
+            ctx.beginPath();
+            ctx.arc(this.x + 17, this.y + 20 + bounceOffset, 2, 0, Math.PI * 2);
+            ctx.arc(this.x + 30, this.y + 20 + bounceOffset, 2, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+
+            // Mouth (smile)
+            ctx.save();
+            ctx.strokeStyle = '#222';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(this.x + 22, this.y + 38 + bounceOffset, 6, 0, Math.PI, false);
+            ctx.stroke();
+            ctx.restore();
         } else {
-            ctx.fillRect(this.x + 5, eyeY, eyeSize, eyeSize - blinkOffset);
-            ctx.fillRect(this.x + 10, eyeY, eyeSize, eyeSize - blinkOffset);
+            // Other skins: keep previous rendering
+            const colors = [
+                ['#ff6b6b', '#ee5a24'],
+                ['#4ecdc4', '#44a08d'],
+                ['#45b7d1', '#2980b9'],
+                ['#96ceb4', '#7fb069']
+            ];
+            const colorPair = colors[this.skin] || colors[0];
+            // Create gradient for player
+            const gradient = ctx.createLinearGradient(this.x, this.y, this.x, this.y + this.height);
+            gradient.addColorStop(0, colorPair[0]);
+            gradient.addColorStop(1, colorPair[1]);
+            ctx.fillStyle = gradient;
+            // Draw player body with rounded corners
+            this.roundRect(ctx, this.x, this.y + bounceOffset, this.width, this.height, 8);
+            ctx.fill();
+            // Add highlight
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+            this.roundRect(ctx, this.x + 2, this.y + 2 + bounceOffset, this.width - 4, this.height / 3, 6);
+            ctx.fill();
+            // Draw eyes with animation
+            ctx.fillStyle = '#000';
+            const eyeSize = 6;
+            const eyeY = this.y + 15 + bounceOffset;
+            const blinkOffset = Math.sin(this.animationFrame * 0.5) > 0.8 ? 2 : 0;
+            if (this.direction === 1) {
+                ctx.fillRect(this.x + 25, eyeY, eyeSize, eyeSize - blinkOffset);
+                ctx.fillRect(this.x + 30, eyeY, eyeSize, eyeSize - blinkOffset);
+            } else {
+                ctx.fillRect(this.x + 5, eyeY, eyeSize, eyeSize - blinkOffset);
+                ctx.fillRect(this.x + 10, eyeY, eyeSize, eyeSize - blinkOffset);
+            }
+            // Draw mouth
+            if (this.isJumping) {
+                ctx.fillRect(this.x + 15, this.y + 35 + bounceOffset, 10, 6);
+            } else {
+                ctx.fillRect(this.x + 15, this.y + 35 + bounceOffset, 10, 3);
+            }
         }
-        
-        // Draw mouth
-        if (this.isJumping) {
-            // Open mouth when jumping
-            ctx.fillRect(this.x + 15, this.y + 35 + bounceOffset, 10, 6);
-        } else {
-            ctx.fillRect(this.x + 15, this.y + 35 + bounceOffset, 10, 3);
-        }
-        
         // Draw unlimited jump indicator
         ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
         ctx.fillRect(this.x + this.width + 5, this.y + 10, 4, 4);
         ctx.fillRect(this.x + this.width + 5, this.y + 20, 4, 4);
         ctx.fillRect(this.x + this.width + 5, this.y + 30, 4, 4);
-        
         ctx.restore();
     }
     

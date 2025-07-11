@@ -55,8 +55,8 @@ body {
 }
 
 #skinShop.menu {
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-bottom: 80px;
+    overflow-y: auto;
     min-height: 100%;
     box-sizing: border-box;
 }
@@ -100,7 +100,7 @@ body {
     background: linear-gradient(45deg, #667eea, #764ba2);
     color: white;
     border: none;
-    padding: 18px 35px;
+    padding: 28px 35px;
     margin: 12px;
     font-size: 1.3rem;
     border-radius: 30px;
@@ -523,6 +523,12 @@ body {
         padding: 15px 28px;
         font-size: 1.1rem;
         min-width: 180px;
+    }
+    #skinShop .menuBtn {
+        margin-top: 18px !important;
+    }
+    #skinShop.menu {
+        padding-bottom: 40px;
     }
 }
 

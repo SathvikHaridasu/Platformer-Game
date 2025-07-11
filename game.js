@@ -1249,17 +1249,25 @@ class Hazard {
     }
     
     render(ctx) {
-        ctx.fillStyle = '#FF0000';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        
-        // Draw spikes
-        ctx.fillStyle = '#8B0000';
-        for (let i = 0; i < this.width; i += 10) {
+        // Simple, clean spikes
+        const spikeCount = Math.floor(this.width / 14);
+        for (let i = 0; i < spikeCount; i++) {
+            const spikeX = this.x + i * (this.width / spikeCount);
+            const spikeW = this.width / spikeCount;
+            ctx.save();
+            // White spike
+            ctx.fillStyle = '#fff';
             ctx.beginPath();
-            ctx.moveTo(this.x + i, this.y + this.height);
-            ctx.lineTo(this.x + i + 5, this.y);
-            ctx.lineTo(this.x + i + 10, this.y + this.height);
+            ctx.moveTo(spikeX, this.y + this.height);
+            ctx.lineTo(spikeX + spikeW / 2, this.y);
+            ctx.lineTo(spikeX + spikeW, this.y + this.height);
+            ctx.closePath();
             ctx.fill();
+            // Outline
+            ctx.strokeStyle = '#444';
+            ctx.lineWidth = 1.2;
+            ctx.stroke();
+            ctx.restore();
         }
     }
 }

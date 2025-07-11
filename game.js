@@ -3,6 +3,9 @@ class Game {
     constructor() {
         this.canvas = document.getElementById('gameCanvas');
         this.ctx = this.canvas.getContext('2d');
+        // Set canvas size to match container
+        this.canvas.width = this.canvas.clientWidth;
+        this.canvas.height = this.canvas.clientHeight;
         this.width = this.canvas.width;
         this.height = this.canvas.height;
         

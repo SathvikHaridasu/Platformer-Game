@@ -954,8 +954,8 @@ class Player {
     constructor(x, y, skin = 0) {
         this.x = x;
         this.y = y;
-        this.width = 40;
-        this.height = 60;
+        this.width = 48; // Make square
+        this.height = 48; // Make square
         this.velocityX = 0;
         this.velocityY = 0;
         this.speed = 6;
@@ -1054,98 +1054,76 @@ class Player {
     
     render(ctx) {
         ctx.save();
-        
-        // Add slight bounce animation when moving
         let bounceOffset = 0;
         if (this.isMoving && this.onGround) {
             bounceOffset = Math.sin(this.animationFrame) * 2;
         }
-        
-        // Draw shadow
         ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
         ctx.fillRect(this.x + 5, this.y + this.height + 5, this.width - 10, 8);
-        
         if (this.skin === 0) {
             // Default skin: modern, glossy, expressive
-            // Outer outline
             ctx.save();
             ctx.shadowColor = 'rgba(0,0,0,0.25)';
             ctx.shadowBlur = 8;
             ctx.lineWidth = 3;
             ctx.strokeStyle = '#b03a2e';
-            this.roundRect(ctx, this.x, this.y + bounceOffset, this.width, this.height, 12);
+            this.roundRect(ctx, this.x, this.y + bounceOffset, this.width, this.height, 8);
             ctx.stroke();
             ctx.restore();
-
-            // Body gradient
             const grad = ctx.createLinearGradient(this.x, this.y, this.x, this.y + this.height);
             grad.addColorStop(0, '#ffb3b3');
             grad.addColorStop(0.5, '#ff6b6b');
             grad.addColorStop(1, '#e74c3c');
             ctx.fillStyle = grad;
-            this.roundRect(ctx, this.x, this.y + bounceOffset, this.width, this.height, 12);
+            this.roundRect(ctx, this.x, this.y + bounceOffset, this.width, this.height, 8);
             ctx.fill();
-
-            // Glossy highlight
             ctx.save();
             ctx.globalAlpha = 0.25;
             ctx.fillStyle = '#fff';
-            this.roundRect(ctx, this.x + 4, this.y + 4 + bounceOffset, this.width - 8, this.height / 3, 10);
+            this.roundRect(ctx, this.x + 4, this.y + 4 + bounceOffset, this.width - 8, this.height / 3, 6);
             ctx.fill();
             ctx.restore();
-
-            // Eyes (rounded, expressive)
             ctx.save();
             ctx.fillStyle = '#222';
             ctx.beginPath();
-            ctx.ellipse(this.x + 15, this.y + 22 + bounceOffset, 7, 5, 0, 0, Math.PI * 2);
-            ctx.ellipse(this.x + 28, this.y + 22 + bounceOffset, 7, 5, 0, 0, Math.PI * 2);
+            ctx.ellipse(this.x + 16, this.y + 18 + bounceOffset, 6, 5, 0, 0, Math.PI * 2);
+            ctx.ellipse(this.x + 32, this.y + 18 + bounceOffset, 6, 5, 0, 0, Math.PI * 2);
             ctx.fill();
             ctx.restore();
-
-            // Eye shine
             ctx.save();
             ctx.fillStyle = '#fff';
             ctx.globalAlpha = 0.5;
             ctx.beginPath();
-            ctx.arc(this.x + 17, this.y + 20 + bounceOffset, 2, 0, Math.PI * 2);
-            ctx.arc(this.x + 30, this.y + 20 + bounceOffset, 2, 0, Math.PI * 2);
+            ctx.arc(this.x + 18, this.y + 16 + bounceOffset, 2, 0, Math.PI * 2);
+            ctx.arc(this.x + 34, this.y + 16 + bounceOffset, 2, 0, Math.PI * 2);
             ctx.fill();
             ctx.restore();
-
-            // Mouth (smile)
             ctx.save();
             ctx.strokeStyle = '#222';
             ctx.lineWidth = 2;
             ctx.beginPath();
-            ctx.arc(this.x + 22, this.y + 38 + bounceOffset, 6, 0, Math.PI, false);
+            ctx.arc(this.x + 24, this.y + 32 + bounceOffset, 6, 0, Math.PI, false);
             ctx.stroke();
             ctx.restore();
         } else if (this.skin === 1) {
             // Ninja skin
-            // Body: dark blue/black with rounded corners
             ctx.save();
             ctx.shadowColor = 'rgba(0,0,0,0.25)';
             ctx.shadowBlur = 8;
             ctx.lineWidth = 2;
             ctx.strokeStyle = '#1a2a32';
-            this.roundRect(ctx, this.x, this.y + bounceOffset, this.width, this.height, 12);
+            this.roundRect(ctx, this.x, this.y + bounceOffset, this.width, this.height, 8);
             ctx.stroke();
             ctx.restore();
-
-            // Ninja body gradient
             const grad = ctx.createLinearGradient(this.x, this.y, this.x, this.y + this.height);
             grad.addColorStop(0, '#2c3e50');
             grad.addColorStop(1, '#22313f');
             ctx.fillStyle = grad;
-            this.roundRect(ctx, this.x, this.y + bounceOffset, this.width, this.height, 12);
+            this.roundRect(ctx, this.x, this.y + bounceOffset, this.width, this.height, 8);
             ctx.fill();
-
-            // Headband (top)
             ctx.save();
             ctx.fillStyle = '#00bcd4';
             ctx.fillRect(this.x + 4, this.y + 8 + bounceOffset, this.width - 8, 7);
-            // Headband tail
             ctx.beginPath();
             ctx.moveTo(this.x + this.width - 10, this.y + 8 + bounceOffset);
             ctx.lineTo(this.x + this.width - 4, this.y + 4 + bounceOffset);
@@ -1153,29 +1131,21 @@ class Player {
             ctx.closePath();
             ctx.fill();
             ctx.restore();
-
-            // Face band (yellow)
             ctx.save();
             ctx.fillStyle = '#ffe082';
-            ctx.fillRect(this.x + 8, this.y + 18 + bounceOffset, this.width - 16, 14);
+            ctx.fillRect(this.x + 8, this.y + 16 + bounceOffset, this.width - 16, 12);
             ctx.restore();
-
-            // Eyes
             ctx.save();
             ctx.fillStyle = '#222';
             ctx.beginPath();
-            ctx.ellipse(this.x + 18, this.y + 25 + bounceOffset, 2.5, 2, 0, 0, Math.PI * 2);
-            ctx.ellipse(this.x + 28, this.y + 25 + bounceOffset, 2.5, 2, 0, 0, Math.PI * 2);
+            ctx.ellipse(this.x + 18, this.y + 23 + bounceOffset, 2.5, 2, 0, 0, Math.PI * 2);
+            ctx.ellipse(this.x + 30, this.y + 23 + bounceOffset, 2.5, 2, 0, 0, Math.PI * 2);
             ctx.fill();
             ctx.restore();
-
-            // Mask (lower face)
             ctx.save();
             ctx.fillStyle = '#263238';
-            ctx.fillRect(this.x + 8, this.y + 34 + bounceOffset, this.width - 16, 10);
+            ctx.fillRect(this.x + 8, this.y + 30 + bounceOffset, this.width - 16, 8);
             ctx.restore();
-
-            // Sash (diagonal)
             ctx.save();
             ctx.strokeStyle = '#607d8b';
             ctx.lineWidth = 3;
@@ -1186,27 +1156,22 @@ class Player {
             ctx.restore();
         } else if (this.skin === 2) {
             // Robot skin
-            // Metallic body with bolts and panel lines
             ctx.save();
             ctx.shadowColor = 'rgba(0,0,0,0.18)';
             ctx.shadowBlur = 7;
             ctx.lineWidth = 2.2;
             ctx.strokeStyle = '#6e7b8b';
-            this.roundRect(ctx, this.x, this.y + bounceOffset, this.width, this.height, 10);
+            this.roundRect(ctx, this.x, this.y + bounceOffset, this.width, this.height, 8);
             ctx.stroke();
             ctx.restore();
-
-            // Metallic body gradient
             const grad = ctx.createLinearGradient(this.x, this.y, this.x, this.y + this.height);
             grad.addColorStop(0, '#e0e6ed');
             grad.addColorStop(0.3, '#b0bec5');
             grad.addColorStop(0.7, '#90a4ae');
             grad.addColorStop(1, '#607d8b');
             ctx.fillStyle = grad;
-            this.roundRect(ctx, this.x, this.y + bounceOffset, this.width, this.height, 10);
+            this.roundRect(ctx, this.x, this.y + bounceOffset, this.width, this.height, 8);
             ctx.fill();
-
-            // Bolts (corners)
             ctx.save();
             ctx.fillStyle = '#b0bec5';
             const boltR = 3;
@@ -1215,8 +1180,6 @@ class Player {
             ctx.beginPath(); ctx.arc(this.x + 7, this.y + this.height - 7 + bounceOffset, boltR, 0, Math.PI * 2); ctx.fill();
             ctx.beginPath(); ctx.arc(this.x + this.width - 7, this.y + this.height - 7 + bounceOffset, boltR, 0, Math.PI * 2); ctx.fill();
             ctx.restore();
-
-            // Antenna
             ctx.save();
             ctx.strokeStyle = '#b0bec5';
             ctx.lineWidth = 2;
@@ -1224,7 +1187,6 @@ class Player {
             ctx.moveTo(this.x + this.width / 2, this.y + bounceOffset - 8);
             ctx.lineTo(this.x + this.width / 2, this.y + bounceOffset + 4);
             ctx.stroke();
-            // Antenna tip
             ctx.beginPath();
             ctx.arc(this.x + this.width / 2, this.y + bounceOffset - 8, 3, 0, Math.PI * 2);
             ctx.fillStyle = '#ffec40';
@@ -1232,36 +1194,63 @@ class Player {
             ctx.shadowBlur = 8;
             ctx.fill();
             ctx.restore();
-
-            // Visor (digital face)
             ctx.save();
             ctx.fillStyle = '#263238';
             ctx.globalAlpha = 0.93;
-            ctx.fillRect(this.x + 8, this.y + 15 + bounceOffset, this.width - 16, 18);
+            ctx.fillRect(this.x + 8, this.y + 12 + bounceOffset, this.width - 16, 14);
             ctx.globalAlpha = 1;
-            // Eyes (rectangular, glowing)
             ctx.fillStyle = '#00e5ff';
             ctx.shadowColor = '#00e5ff';
             ctx.shadowBlur = 8;
-            ctx.fillRect(this.x + 15, this.y + 21 + bounceOffset, 7, 6);
-            ctx.fillRect(this.x + this.width - 22, this.y + 21 + bounceOffset, 7, 6);
+            ctx.fillRect(this.x + 15, this.y + 17 + bounceOffset, 7, 6);
+            ctx.fillRect(this.x + this.width - 22, this.y + 17 + bounceOffset, 7, 6);
             ctx.shadowBlur = 0;
-            // Mouth (LED bar)
             ctx.fillStyle = '#b2ebf2';
-            ctx.fillRect(this.x + 22, this.y + 30 + bounceOffset, 12, 3);
+            ctx.fillRect(this.x + 20, this.y + 26 + bounceOffset, 12, 3);
             ctx.restore();
-
-            // Panel line (chest)
             ctx.save();
             ctx.strokeStyle = '#90a4ae';
             ctx.lineWidth = 1.2;
             ctx.beginPath();
-            ctx.moveTo(this.x + 10, this.y + this.height - 18 + bounceOffset);
-            ctx.lineTo(this.x + this.width - 10, this.y + this.height - 18 + bounceOffset);
+            ctx.moveTo(this.x + 10, this.y + this.height - 12 + bounceOffset);
+            ctx.lineTo(this.x + this.width - 10, this.y + this.height - 12 + bounceOffset);
             ctx.stroke();
             ctx.restore();
+        } else {
+            // Other skins: keep previous rendering, but use square
+            const colors = [
+                ['#ff6b6b', '#ee5a24'],
+                ['#4ecdc4', '#44a08d'],
+                ['#45b7d1', '#2980b9'],
+                ['#96ceb4', '#7fb069']
+            ];
+            const colorPair = colors[this.skin] || colors[0];
+            const gradient = ctx.createLinearGradient(this.x, this.y, this.x, this.y + this.height);
+            gradient.addColorStop(0, colorPair[0]);
+            gradient.addColorStop(1, colorPair[1]);
+            ctx.fillStyle = gradient;
+            this.roundRect(ctx, this.x, this.y + bounceOffset, this.width, this.height, 8);
+            ctx.fill();
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+            this.roundRect(ctx, this.x + 2, this.y + 2 + bounceOffset, this.width - 4, this.height / 3, 6);
+            ctx.fill();
+            ctx.fillStyle = '#000';
+            const eyeSize = 6;
+            const eyeY = this.y + 13 + bounceOffset;
+            const blinkOffset = Math.sin(this.animationFrame * 0.5) > 0.8 ? 2 : 0;
+            if (this.direction === 1) {
+                ctx.fillRect(this.x + 25, eyeY, eyeSize, eyeSize - blinkOffset);
+                ctx.fillRect(this.x + 30, eyeY, eyeSize, eyeSize - blinkOffset);
+            } else {
+                ctx.fillRect(this.x + 7, eyeY, eyeSize, eyeSize - blinkOffset);
+                ctx.fillRect(this.x + 12, eyeY, eyeSize, eyeSize - blinkOffset);
+            }
+            if (this.isJumping) {
+                ctx.fillRect(this.x + 15, this.y + 28 + bounceOffset, 10, 6);
+            } else {
+                ctx.fillRect(this.x + 15, this.y + 28 + bounceOffset, 10, 3);
+            }
         }
-        // Draw unlimited jump indicator
         ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
         ctx.fillRect(this.x + this.width + 5, this.y + 10, 4, 4);
         ctx.fillRect(this.x + this.width + 5, this.y + 20, 4, 4);

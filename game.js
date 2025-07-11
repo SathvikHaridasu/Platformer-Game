@@ -339,115 +339,208 @@ class Game {
             1: {
                 playerStart: { x: 100, y: 500 },
                 platforms: [
-                    { x: 0, y: 650, width: 200, height: 70 },
-                    { x: 300, y: 550, width: 200, height: 70 },
-                    { x: 600, y: 450, width: 200, height: 70 },
-                    { x: 900, y: 350, width: 200, height: 70 },
-                    { x: 1200, y: 250, width: 200, height: 70 }
+                    { x: 0, y: 650, width: 300, height: 70 },
+                    { x: 400, y: 550, width: 250, height: 70 },
+                    { x: 750, y: 450, width: 200, height: 70 },
+                    { x: 1050, y: 350, width: 250, height: 70 },
+                    { x: 1400, y: 250, width: 200, height: 70 },
+                    { x: 1700, y: 400, width: 300, height: 70 },
+                    { x: 2100, y: 300, width: 250, height: 70 },
+                    { x: 2450, y: 200, width: 200, height: 70 },
+                    { x: 2750, y: 350, width: 300, height: 70 },
+                    { x: 3150, y: 250, width: 250, height: 70 }
                 ],
                 movingPlatforms: [
-                    { x: 450, y: 400, width: 150, height: 20, startX: 450, endX: 650, speed: 2 }
+                    { x: 600, y: 400, width: 120, height: 20, startX: 600, endX: 800, speed: 2 },
+                    { x: 1200, y: 200, width: 120, height: 20, startX: 1200, endX: 1400, speed: 1.5 },
+                    { x: 1900, y: 300, width: 120, height: 20, startX: 1900, endX: 2100, speed: 2.5 }
                 ],
                 breakablePlatforms: [
-                    { x: 750, y: 300, width: 100, height: 20 }
+                    { x: 900, y: 250, width: 100, height: 20 },
+                    { x: 1600, y: 300, width: 100, height: 20 },
+                    { x: 2300, y: 150, width: 100, height: 20 }
                 ],
                 coins: [
-                    { x: 350, y: 500 },
-                    { x: 650, y: 400 },
-                    { x: 950, y: 300 },
-                    { x: 1250, y: 200 },
-                    { x: 500, y: 350 },
-                    { x: 800, y: 250 },
-                    { x: 1100, y: 150 }
+                    { x: 450, y: 500 },
+                    { x: 800, y: 400 },
+                    { x: 1100, y: 300 },
+                    { x: 1450, y: 200 },
+                    { x: 1750, y: 350 },
+                    { x: 2150, y: 250 },
+                    { x: 2500, y: 150 },
+                    { x: 2800, y: 300 },
+                    { x: 3200, y: 200 },
+                    { x: 700, y: 350 },
+                    { x: 1000, y: 250 },
+                    { x: 1300, y: 150 },
+                    { x: 1650, y: 300 },
+                    { x: 2000, y: 200 },
+                    { x: 2350, y: 100 }
                 ],
                 hazards: [
-                    { x: 250, y: 630, width: 40, height: 20 },
-                    { x: 550, y: 430, width: 40, height: 20 },
-                    { x: 850, y: 330, width: 40, height: 20 }
+                    { x: 350, y: 630, width: 40, height: 20 },
+                    { x: 650, y: 530, width: 40, height: 20 },
+                    { x: 950, y: 430, width: 40, height: 20 },
+                    { x: 1250, y: 330, width: 40, height: 20 },
+                    { x: 1550, y: 480, width: 40, height: 20 },
+                    { x: 1850, y: 380, width: 40, height: 20 },
+                    { x: 2150, y: 280, width: 40, height: 20 },
+                    { x: 2450, y: 180, width: 40, height: 20 },
+                    { x: 2750, y: 430, width: 40, height: 20 },
+                    { x: 3050, y: 330, width: 40, height: 20 }
                 ],
-                goal: { x: 1350, y: 200 }
+                goal: { x: 3500, y: 200 }
             },
             2: {
                 playerStart: { x: 100, y: 500 },
                 platforms: [
-                    { x: 0, y: 650, width: 150, height: 70 },
-                    { x: 250, y: 500, width: 150, height: 70 },
-                    { x: 500, y: 400, width: 150, height: 70 },
-                    { x: 750, y: 300, width: 150, height: 70 },
-                    { x: 1000, y: 200, width: 150, height: 70 },
-                    { x: 1250, y: 100, width: 150, height: 70 }
+                    { x: 0, y: 650, width: 200, height: 70 },
+                    { x: 300, y: 500, width: 180, height: 70 },
+                    { x: 580, y: 400, width: 160, height: 70 },
+                    { x: 840, y: 300, width: 180, height: 70 },
+                    { x: 1120, y: 200, width: 160, height: 70 },
+                    { x: 1380, y: 100, width: 180, height: 70 },
+                    { x: 1660, y: 250, width: 200, height: 70 },
+                    { x: 1960, y: 150, width: 180, height: 70 },
+                    { x: 2240, y: 300, width: 160, height: 70 },
+                    { x: 2500, y: 200, width: 180, height: 70 },
+                    { x: 2780, y: 350, width: 200, height: 70 },
+                    { x: 3080, y: 250, width: 180, height: 70 }
                 ],
                 movingPlatforms: [
-                    { x: 400, y: 350, width: 120, height: 20, startX: 400, endX: 600, speed: 3 },
-                    { x: 900, y: 150, width: 120, height: 20, startX: 900, endX: 1100, speed: 2 }
+                    { x: 500, y: 300, width: 100, height: 20, startX: 500, endX: 700, speed: 3 },
+                    { x: 1000, y: 100, width: 100, height: 20, startX: 1000, endX: 1200, speed: 2.5 },
+                    { x: 1500, y: 200, width: 100, height: 20, startX: 1500, endX: 1700, speed: 3.5 },
+                    { x: 2000, y: 50, width: 100, height: 20, startX: 2000, endX: 2200, speed: 2 },
+                    { x: 2500, y: 150, width: 100, height: 20, startX: 2500, endX: 2700, speed: 3 }
                 ],
                 breakablePlatforms: [
-                    { x: 650, y: 250, width: 80, height: 20 },
-                    { x: 1150, y: 50, width: 80, height: 20 }
+                    { x: 750, y: 200, width: 80, height: 20 },
+                    { x: 1250, y: 50, width: 80, height: 20 },
+                    { x: 1750, y: 150, width: 80, height: 20 },
+                    { x: 2250, y: 200, width: 80, height: 20 },
+                    { x: 2750, y: 250, width: 80, height: 20 }
                 ],
                 coins: [
-                    { x: 300, y: 450 },
-                    { x: 550, y: 350 },
-                    { x: 800, y: 250 },
-                    { x: 1050, y: 150 },
-                    { x: 1300, y: 50 },
-                    { x: 450, y: 300 },
-                    { x: 700, y: 200 },
-                    { x: 950, y: 100 },
-                    { x: 1200, y: 0 }
+                    { x: 350, y: 450 },
+                    { x: 630, y: 350 },
+                    { x: 890, y: 250 },
+                    { x: 1170, y: 150 },
+                    { x: 1430, y: 50 },
+                    { x: 1710, y: 200 },
+                    { x: 2010, y: 100 },
+                    { x: 2290, y: 250 },
+                    { x: 2550, y: 150 },
+                    { x: 2830, y: 300 },
+                    { x: 3130, y: 200 },
+                    { x: 550, y: 250 },
+                    { x: 810, y: 150 },
+                    { x: 1090, y: 50 },
+                    { x: 1350, y: 150 },
+                    { x: 1630, y: 100 },
+                    { x: 1910, y: 200 },
+                    { x: 2190, y: 150 },
+                    { x: 2450, y: 250 },
+                    { x: 2730, y: 200 }
                 ],
                 hazards: [
-                    { x: 200, y: 630, width: 40, height: 20 },
-                    { x: 450, y: 480, width: 40, height: 20 },
-                    { x: 700, y: 380, width: 40, height: 20 },
-                    { x: 950, y: 280, width: 40, height: 20 },
-                    { x: 1200, y: 180, width: 40, height: 20 }
+                    { x: 250, y: 630, width: 40, height: 20 },
+                    { x: 550, y: 530, width: 40, height: 20 },
+                    { x: 810, y: 430, width: 40, height: 20 },
+                    { x: 1090, y: 330, width: 40, height: 20 },
+                    { x: 1350, y: 230, width: 40, height: 20 },
+                    { x: 1630, y: 380, width: 40, height: 20 },
+                    { x: 1930, y: 280, width: 40, height: 20 },
+                    { x: 2210, y: 430, width: 40, height: 20 },
+                    { x: 2470, y: 330, width: 40, height: 20 },
+                    { x: 2750, y: 480, width: 40, height: 20 },
+                    { x: 3050, y: 380, width: 40, height: 20 }
                 ],
-                goal: { x: 1400, y: 50 }
+                goal: { x: 3400, y: 150 }
             },
             3: {
                 playerStart: { x: 100, y: 500 },
                 platforms: [
-                    { x: 0, y: 650, width: 120, height: 70 },
-                    { x: 200, y: 550, width: 120, height: 70 },
-                    { x: 400, y: 450, width: 120, height: 70 },
-                    { x: 600, y: 350, width: 120, height: 70 },
-                    { x: 800, y: 250, width: 120, height: 70 },
-                    { x: 1000, y: 150, width: 120, height: 70 },
-                    { x: 1200, y: 50, width: 120, height: 70 }
+                    { x: 0, y: 650, width: 150, height: 70 },
+                    { x: 250, y: 550, width: 140, height: 70 },
+                    { x: 490, y: 450, width: 130, height: 70 },
+                    { x: 720, y: 350, width: 140, height: 70 },
+                    { x: 960, y: 250, width: 130, height: 70 },
+                    { x: 1190, y: 150, width: 140, height: 70 },
+                    { x: 1430, y: 50, width: 130, height: 70 },
+                    { x: 1660, y: 200, width: 150, height: 70 },
+                    { x: 1910, y: 100, width: 140, height: 70 },
+                    { x: 2150, y: 250, width: 130, height: 70 },
+                    { x: 2380, y: 150, width: 140, height: 70 },
+                    { x: 2620, y: 50, width: 130, height: 70 },
+                    { x: 2850, y: 200, width: 150, height: 70 },
+                    { x: 3100, y: 100, width: 140, height: 70 },
+                    { x: 3340, y: 250, width: 130, height: 70 }
                 ],
                 movingPlatforms: [
-                    { x: 350, y: 400, width: 100, height: 20, startX: 350, endX: 550, speed: 4 },
-                    { x: 750, y: 200, width: 100, height: 20, startX: 750, endX: 950, speed: 3 },
-                    { x: 1150, y: 0, width: 100, height: 20, startX: 1150, endX: 1350, speed: 2 }
+                    { x: 400, y: 350, width: 80, height: 20, startX: 400, endX: 600, speed: 4 },
+                    { x: 800, y: 150, width: 80, height: 20, startX: 800, endX: 1000, speed: 3.5 },
+                    { x: 1200, y: 50, width: 80, height: 20, startX: 1200, endX: 1400, speed: 3 },
+                    { x: 1600, y: 150, width: 80, height: 20, startX: 1600, endX: 1800, speed: 4.5 },
+                    { x: 2000, y: 50, width: 80, height: 20, startX: 2000, endX: 2200, speed: 3.5 },
+                    { x: 2400, y: 150, width: 80, height: 20, startX: 2400, endX: 2600, speed: 4 },
+                    { x: 2800, y: 50, width: 80, height: 20, startX: 2800, endX: 3000, speed: 3.5 },
+                    { x: 3200, y: 150, width: 80, height: 20, startX: 3200, endX: 3400, speed: 4.5 }
                 ],
                 breakablePlatforms: [
-                    { x: 550, y: 300, width: 60, height: 20 },
-                    { x: 950, y: 100, width: 60, height: 20 },
-                    { x: 1350, y: -50, width: 60, height: 20 }
+                    { x: 650, y: 250, width: 60, height: 20 },
+                    { x: 1050, y: 50, width: 60, height: 20 },
+                    { x: 1450, y: 150, width: 60, height: 20 },
+                    { x: 1850, y: 50, width: 60, height: 20 },
+                    { x: 2250, y: 150, width: 60, height: 20 },
+                    { x: 2650, y: 50, width: 60, height: 20 },
+                    { x: 3050, y: 150, width: 60, height: 20 }
                 ],
                 coins: [
-                    { x: 250, y: 500 },
-                    { x: 450, y: 400 },
-                    { x: 650, y: 300 },
-                    { x: 850, y: 200 },
-                    { x: 1050, y: 100 },
-                    { x: 1250, y: 0 },
-                    { x: 400, y: 350 },
-                    { x: 600, y: 250 },
-                    { x: 800, y: 150 },
-                    { x: 1000, y: 50 },
-                    { x: 1200, y: -50 }
+                    { x: 300, y: 500 },
+                    { x: 540, y: 400 },
+                    { x: 770, y: 300 },
+                    { x: 1010, y: 200 },
+                    { x: 1240, y: 100 },
+                    { x: 1480, y: 0 },
+                    { x: 1710, y: 150 },
+                    { x: 1960, y: 50 },
+                    { x: 2200, y: 200 },
+                    { x: 2430, y: 100 },
+                    { x: 2670, y: 0 },
+                    { x: 2900, y: 150 },
+                    { x: 3150, y: 50 },
+                    { x: 3390, y: 200 },
+                    { x: 450, y: 300 },
+                    { x: 680, y: 200 },
+                    { x: 920, y: 100 },
+                    { x: 1150, y: 0 },
+                    { x: 1390, y: 150 },
+                    { x: 1620, y: 50 },
+                    { x: 1860, y: 200 },
+                    { x: 2090, y: 100 },
+                    { x: 2330, y: 0 },
+                    { x: 2560, y: 150 },
+                    { x: 2800, y: 50 },
+                    { x: 3040, y: 200 }
                 ],
                 hazards: [
-                    { x: 150, y: 630, width: 40, height: 20 },
-                    { x: 350, y: 530, width: 40, height: 20 },
-                    { x: 550, y: 430, width: 40, height: 20 },
-                    { x: 750, y: 330, width: 40, height: 20 },
-                    { x: 950, y: 230, width: 40, height: 20 },
-                    { x: 1150, y: 130, width: 40, height: 20 }
+                    { x: 200, y: 630, width: 40, height: 20 },
+                    { x: 440, y: 530, width: 40, height: 20 },
+                    { x: 670, y: 430, width: 40, height: 20 },
+                    { x: 910, y: 330, width: 40, height: 20 },
+                    { x: 1140, y: 230, width: 40, height: 20 },
+                    { x: 1380, y: 130, width: 40, height: 20 },
+                    { x: 1610, y: 280, width: 40, height: 20 },
+                    { x: 1860, y: 180, width: 40, height: 20 },
+                    { x: 2100, y: 330, width: 40, height: 20 },
+                    { x: 2330, y: 230, width: 40, height: 20 },
+                    { x: 2570, y: 130, width: 40, height: 20 },
+                    { x: 2800, y: 280, width: 40, height: 20 },
+                    { x: 3050, y: 180, width: 40, height: 20 },
+                    { x: 3290, y: 330, width: 40, height: 20 }
                 ],
-                goal: { x: 1450, y: -50 }
+                goal: { x: 3600, y: 150 }
             }
         };
         
@@ -512,13 +605,17 @@ class Game {
             platform.update();
         });
         
-        // Update camera to follow player
+        // Update camera to follow player with smooth movement
         if (this.player) {
-            this.camera.x = this.player.x - this.width / 2;
-            this.camera.y = this.player.y - this.height / 2;
+            const targetX = this.player.x - this.width / 2;
+            const targetY = this.player.y - this.height / 2;
             
-            // Clamp camera to level bounds
-            this.camera.x = Math.max(0, Math.min(this.camera.x, 1500 - this.width));
+            // Smooth camera movement
+            this.camera.x += (targetX - this.camera.x) * 0.1;
+            this.camera.y += (targetY - this.camera.y) * 0.1;
+            
+            // Clamp camera to level bounds (adjusted for longer levels)
+            this.camera.x = Math.max(0, Math.min(this.camera.x, 4000 - this.width));
             this.camera.y = Math.max(0, Math.min(this.camera.y, 800 - this.height));
         }
     }
@@ -567,12 +664,70 @@ class Game {
     }
     
     drawBackgroundElements() {
-        // Draw animated clouds
+        // Draw parallax background layers
         const time = Date.now() * 0.001;
-        for (let i = 0; i < 5; i++) {
-            const x = (time * 20 + i * 300) % (this.width + 200) - 100;
-            const y = 50 + i * 80;
-            this.drawCloud(x, y, 0.8 + i * 0.1);
+        
+        // Far background mountains (slow parallax)
+        this.drawMountains();
+        
+        // Mid background clouds (medium parallax)
+        for (let i = 0; i < 8; i++) {
+            const x = (time * 10 + i * 400) % (this.width + 400) - 200;
+            const y = 30 + i * 60;
+            this.drawCloud(x, y, 0.6 + i * 0.05);
+        }
+        
+        // Near background elements (fast parallax)
+        this.drawTrees();
+    }
+    
+    drawMountains() {
+        const mountainCount = 6;
+        const mountainWidth = this.width / mountainCount;
+        
+        for (let i = 0; i <= mountainCount; i++) {
+            const x = i * mountainWidth;
+            const height = 150 + Math.sin(i * 0.5) * 50;
+            
+            // Mountain gradient
+            const gradient = this.ctx.createLinearGradient(x, this.height - height, x, this.height);
+            gradient.addColorStop(0, '#4A5568');
+            gradient.addColorStop(1, '#2D3748');
+            
+            this.ctx.fillStyle = gradient;
+            this.ctx.beginPath();
+            this.ctx.moveTo(x, this.height);
+            this.ctx.lineTo(x + mountainWidth * 0.5, this.height - height);
+            this.ctx.lineTo(x + mountainWidth, this.height);
+            this.ctx.fill();
+        }
+    }
+    
+    drawTrees() {
+        const treeCount = 12;
+        const treeSpacing = this.width / treeCount;
+        
+        for (let i = 0; i <= treeCount; i++) {
+            const x = i * treeSpacing + (Math.sin(i * 0.7) * 50);
+            const height = 80 + Math.sin(i * 0.3) * 30;
+            
+            // Tree trunk
+            this.ctx.fillStyle = '#8B4513';
+            this.ctx.fillRect(x - 5, this.height - height - 20, 10, height + 20);
+            
+            // Tree leaves
+            this.ctx.fillStyle = '#228B22';
+            this.ctx.beginPath();
+            this.ctx.arc(x, this.height - height - 10, 25, 0, Math.PI * 2);
+            this.ctx.fill();
+            
+            this.ctx.beginPath();
+            this.ctx.arc(x - 15, this.height - height + 10, 20, 0, Math.PI * 2);
+            this.ctx.fill();
+            
+            this.ctx.beginPath();
+            this.ctx.arc(x + 15, this.height - height + 10, 20, 0, Math.PI * 2);
+            this.ctx.fill();
         }
     }
     
@@ -870,23 +1025,38 @@ class Platform {
         // Create gradient for platform
         const gradient = ctx.createLinearGradient(this.x, this.y, this.x, this.y + this.height);
         gradient.addColorStop(0, '#8B4513');
+        gradient.addColorStop(0.5, '#A0522D');
         gradient.addColorStop(1, '#654321');
         ctx.fillStyle = gradient;
         
         // Draw platform with rounded corners
-        this.roundRect(ctx, this.x, this.y, this.width, this.height, 5);
+        this.roundRect(ctx, this.x, this.y, this.width, this.height, 8);
         ctx.fill();
         
+        // Add wood grain texture
+        ctx.strokeStyle = 'rgba(139, 69, 19, 0.3)';
+        ctx.lineWidth = 1;
+        for (let i = 0; i < this.width; i += 15) {
+            ctx.beginPath();
+            ctx.moveTo(this.x + i, this.y);
+            ctx.lineTo(this.x + i, this.y + this.height);
+            ctx.stroke();
+        }
+        
         // Add highlight
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
-        this.roundRect(ctx, this.x + 2, this.y + 2, this.width - 4, this.height / 2, 3);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+        this.roundRect(ctx, this.x + 3, this.y + 3, this.width - 6, this.height / 3, 6);
         ctx.fill();
         
         // Add border
         ctx.strokeStyle = '#654321';
-        ctx.lineWidth = 2;
-        this.roundRect(ctx, this.x, this.y, this.width, this.height, 5);
+        ctx.lineWidth = 3;
+        this.roundRect(ctx, this.x, this.y, this.width, this.height, 8);
         ctx.stroke();
+        
+        // Add shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+        ctx.fillRect(this.x + 5, this.y + this.height + 2, this.width - 10, 8);
     }
     
     roundRect(ctx, x, y, width, height, radius) {

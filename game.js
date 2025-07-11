@@ -562,6 +562,108 @@ class Game {
                     { x: 3290, y: 330, width: 40, height: 20 }
                 ],
                 goal: { x: 3600, y: 150 }
+            },
+            4: {
+                playerStart: { x: 100, y: 500 },
+                platforms: [
+                    { x: 0, y: 650, width: 200, height: 70 },
+                    { x: 350, y: 500, width: 180, height: 70 },
+                    { x: 700, y: 400, width: 160, height: 70 },
+                    { x: 1050, y: 300, width: 180, height: 70 },
+                    { x: 1400, y: 200, width: 160, height: 70 },
+                    { x: 1750, y: 100, width: 180, height: 70 },
+                    { x: 2100, y: 250, width: 200, height: 70 },
+                    { x: 2450, y: 150, width: 180, height: 70 },
+                    { x: 2800, y: 300, width: 160, height: 70 },
+                    { x: 3150, y: 200, width: 180, height: 70 },
+                    { x: 3500, y: 350, width: 200, height: 70 },
+                    { x: 3850, y: 250, width: 180, height: 70 }
+                ],
+                movingPlatforms: [
+                    { x: 600, y: 350, width: 100, height: 20, startX: 600, endX: 900, speed: 2 },
+                    { x: 1200, y: 150, width: 100, height: 20, startX: 1200, endX: 1500, speed: 2.5 },
+                    { x: 1800, y: 200, width: 100, height: 20, startX: 1800, endX: 2100, speed: 3 },
+                    { x: 2400, y: 100, width: 100, height: 20, startX: 2400, endX: 2700, speed: 2.5 },
+                    { x: 3000, y: 250, width: 100, height: 20, startX: 3000, endX: 3300, speed: 3 }
+                ],
+                breakablePlatforms: [
+                    { x: 900, y: 250, width: 80, height: 20 },
+                    { x: 1600, y: 100, width: 80, height: 20 },
+                    { x: 2300, y: 200, width: 80, height: 20 },
+                    { x: 3000, y: 150, width: 80, height: 20 },
+                    { x: 3700, y: 100, width: 80, height: 20 }
+                ],
+                coins: [
+                    { x: 200, y: 600 }, { x: 400, y: 450 }, { x: 800, y: 350 }, { x: 1200, y: 250 },
+                    { x: 1600, y: 150 }, { x: 2000, y: 100 }, { x: 2400, y: 200 }, { x: 2800, y: 150 },
+                    { x: 3200, y: 300 }, { x: 3600, y: 200 }, { x: 3900, y: 150 }, { x: 600, y: 300 },
+                    { x: 1000, y: 200 }, { x: 1400, y: 100 }, { x: 1800, y: 200 }, { x: 2200, y: 150 },
+                    { x: 2600, y: 300 }, { x: 3000, y: 200 }, { x: 3400, y: 100 }, { x: 3800, y: 250 }
+                ],
+                hazards: [
+                    { x: 300, y: 630, width: 40, height: 20 }, { x: 700, y: 530, width: 40, height: 20 },
+                    { x: 1100, y: 430, width: 40, height: 20 }, { x: 1500, y: 330, width: 40, height: 20 },
+                    { x: 1900, y: 230, width: 40, height: 20 }, { x: 2300, y: 130, width: 40, height: 20 },
+                    { x: 2700, y: 280, width: 40, height: 20 }, { x: 3100, y: 180, width: 40, height: 20 },
+                    { x: 3500, y: 330, width: 40, height: 20 }, { x: 3900, y: 230, width: 40, height: 20 }
+                ],
+                goal: { x: 4100, y: 150 }
+            },
+            5: {
+                playerStart: { x: 100, y: 500 },
+                platforms: [
+                    { x: 0, y: 650, width: 180, height: 70 },
+                    { x: 250, y: 500, width: 160, height: 70 },
+                    { x: 500, y: 400, width: 140, height: 70 },
+                    { x: 740, y: 300, width: 160, height: 70 },
+                    { x: 1000, y: 200, width: 140, height: 70 },
+                    { x: 1240, y: 100, width: 160, height: 70 },
+                    { x: 1500, y: 250, width: 180, height: 70 },
+                    { x: 1780, y: 150, width: 160, height: 70 },
+                    { x: 2040, y: 300, width: 140, height: 70 },
+                    { x: 2280, y: 200, width: 160, height: 70 },
+                    { x: 2540, y: 350, width: 180, height: 70 },
+                    { x: 2820, y: 250, width: 160, height: 70 },
+                    { x: 3080, y: 400, width: 140, height: 70 },
+                    { x: 3320, y: 300, width: 160, height: 70 },
+                    { x: 3580, y: 200, width: 180, height: 70 },
+                    { x: 3860, y: 100, width: 160, height: 70 }
+                ],
+                movingPlatforms: [
+                    { x: 400, y: 350, width: 100, height: 20, startX: 400, endX: 700, speed: 3 },
+                    { x: 900, y: 100, width: 100, height: 20, startX: 900, endX: 1200, speed: 2.5 },
+                    { x: 1400, y: 200, width: 100, height: 20, startX: 1400, endX: 1700, speed: 3.5 },
+                    { x: 1900, y: 50, width: 100, height: 20, startX: 1900, endX: 2200, speed: 2 },
+                    { x: 2400, y: 150, width: 100, height: 20, startX: 2400, endX: 2700, speed: 3 },
+                    { x: 2900, y: 250, width: 100, height: 20, startX: 2900, endX: 3200, speed: 2.5 },
+                    { x: 3400, y: 100, width: 100, height: 20, startX: 3400, endX: 3700, speed: 3.5 }
+                ],
+                breakablePlatforms: [
+                    { x: 650, y: 200, width: 80, height: 20 },
+                    { x: 1250, y: 50, width: 80, height: 20 },
+                    { x: 1850, y: 150, width: 80, height: 20 },
+                    { x: 2450, y: 200, width: 80, height: 20 },
+                    { x: 3050, y: 250, width: 80, height: 20 },
+                    { x: 3650, y: 100, width: 80, height: 20 }
+                ],
+                coins: [
+                    { x: 200, y: 600 }, { x: 400, y: 450 }, { x: 800, y: 350 }, { x: 1200, y: 250 },
+                    { x: 1600, y: 150 }, { x: 2000, y: 100 }, { x: 2400, y: 200 }, { x: 2800, y: 150 },
+                    { x: 3200, y: 300 }, { x: 3600, y: 200 }, { x: 3900, y: 150 }, { x: 600, y: 300 },
+                    { x: 1000, y: 200 }, { x: 1400, y: 100 }, { x: 1800, y: 200 }, { x: 2200, y: 150 },
+                    { x: 2600, y: 300 }, { x: 3000, y: 200 }, { x: 3400, y: 100 }, { x: 3800, y: 250 },
+                    { x: 800, y: 100 }, { x: 1800, y: 50 }, { x: 2800, y: 100 }, { x: 3800, y: 50 }
+                ],
+                hazards: [
+                    { x: 300, y: 630, width: 40, height: 20 }, { x: 700, y: 530, width: 40, height: 20 },
+                    { x: 1100, y: 430, width: 40, height: 20 }, { x: 1500, y: 330, width: 40, height: 20 },
+                    { x: 1900, y: 230, width: 40, height: 20 }, { x: 2300, y: 130, width: 40, height: 20 },
+                    { x: 2700, y: 280, width: 40, height: 20 }, { x: 3100, y: 180, width: 40, height: 20 },
+                    { x: 3500, y: 330, width: 40, height: 20 }, { x: 3900, y: 230, width: 40, height: 20 },
+                    { x: 800, y: 600, width: 40, height: 20 }, { x: 1800, y: 500, width: 40, height: 20 },
+                    { x: 2800, y: 600, width: 40, height: 20 }, { x: 3800, y: 500, width: 40, height: 20 }
+                ],
+                goal: { x: 4100, y: 100 }
             }
         };
         
@@ -963,7 +1065,6 @@ class Player {
         ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
         ctx.fillRect(this.x + 5, this.y + this.height + 5, this.width - 10, 8);
         
-        // Draw player based on skin
         if (this.skin === 0) {
             // Default skin: modern, glossy, expressive
             // Outer outline
@@ -1020,45 +1121,145 @@ class Player {
             ctx.arc(this.x + 22, this.y + 38 + bounceOffset, 6, 0, Math.PI, false);
             ctx.stroke();
             ctx.restore();
-        } else {
-            // Other skins: keep previous rendering
-            const colors = [
-                ['#ff6b6b', '#ee5a24'],
-                ['#4ecdc4', '#44a08d'],
-                ['#45b7d1', '#2980b9'],
-                ['#96ceb4', '#7fb069']
-            ];
-            const colorPair = colors[this.skin] || colors[0];
-            // Create gradient for player
-            const gradient = ctx.createLinearGradient(this.x, this.y, this.x, this.y + this.height);
-            gradient.addColorStop(0, colorPair[0]);
-            gradient.addColorStop(1, colorPair[1]);
-            ctx.fillStyle = gradient;
-            // Draw player body with rounded corners
-            this.roundRect(ctx, this.x, this.y + bounceOffset, this.width, this.height, 8);
+        } else if (this.skin === 1) {
+            // Ninja skin
+            // Body: dark blue/black with rounded corners
+            ctx.save();
+            ctx.shadowColor = 'rgba(0,0,0,0.25)';
+            ctx.shadowBlur = 8;
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = '#1a2a32';
+            this.roundRect(ctx, this.x, this.y + bounceOffset, this.width, this.height, 12);
+            ctx.stroke();
+            ctx.restore();
+
+            // Ninja body gradient
+            const grad = ctx.createLinearGradient(this.x, this.y, this.x, this.y + this.height);
+            grad.addColorStop(0, '#2c3e50');
+            grad.addColorStop(1, '#22313f');
+            ctx.fillStyle = grad;
+            this.roundRect(ctx, this.x, this.y + bounceOffset, this.width, this.height, 12);
             ctx.fill();
-            // Add highlight
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
-            this.roundRect(ctx, this.x + 2, this.y + 2 + bounceOffset, this.width - 4, this.height / 3, 6);
+
+            // Headband (top)
+            ctx.save();
+            ctx.fillStyle = '#00bcd4';
+            ctx.fillRect(this.x + 4, this.y + 8 + bounceOffset, this.width - 8, 7);
+            // Headband tail
+            ctx.beginPath();
+            ctx.moveTo(this.x + this.width - 10, this.y + 8 + bounceOffset);
+            ctx.lineTo(this.x + this.width - 4, this.y + 4 + bounceOffset);
+            ctx.lineTo(this.x + this.width - 8, this.y + 16 + bounceOffset);
+            ctx.closePath();
             ctx.fill();
-            // Draw eyes with animation
-            ctx.fillStyle = '#000';
-            const eyeSize = 6;
-            const eyeY = this.y + 15 + bounceOffset;
-            const blinkOffset = Math.sin(this.animationFrame * 0.5) > 0.8 ? 2 : 0;
-            if (this.direction === 1) {
-                ctx.fillRect(this.x + 25, eyeY, eyeSize, eyeSize - blinkOffset);
-                ctx.fillRect(this.x + 30, eyeY, eyeSize, eyeSize - blinkOffset);
-            } else {
-                ctx.fillRect(this.x + 5, eyeY, eyeSize, eyeSize - blinkOffset);
-                ctx.fillRect(this.x + 10, eyeY, eyeSize, eyeSize - blinkOffset);
-            }
-            // Draw mouth
-            if (this.isJumping) {
-                ctx.fillRect(this.x + 15, this.y + 35 + bounceOffset, 10, 6);
-            } else {
-                ctx.fillRect(this.x + 15, this.y + 35 + bounceOffset, 10, 3);
-            }
+            ctx.restore();
+
+            // Face band (yellow)
+            ctx.save();
+            ctx.fillStyle = '#ffe082';
+            ctx.fillRect(this.x + 8, this.y + 18 + bounceOffset, this.width - 16, 14);
+            ctx.restore();
+
+            // Eyes
+            ctx.save();
+            ctx.fillStyle = '#222';
+            ctx.beginPath();
+            ctx.ellipse(this.x + 18, this.y + 25 + bounceOffset, 2.5, 2, 0, 0, Math.PI * 2);
+            ctx.ellipse(this.x + 28, this.y + 25 + bounceOffset, 2.5, 2, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+
+            // Mask (lower face)
+            ctx.save();
+            ctx.fillStyle = '#263238';
+            ctx.fillRect(this.x + 8, this.y + 34 + bounceOffset, this.width - 16, 10);
+            ctx.restore();
+
+            // Sash (diagonal)
+            ctx.save();
+            ctx.strokeStyle = '#607d8b';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(this.x + 10, this.y + this.height - 10 + bounceOffset);
+            ctx.lineTo(this.x + this.width - 10, this.y + 20 + bounceOffset);
+            ctx.stroke();
+            ctx.restore();
+        } else if (this.skin === 2) {
+            // Robot skin
+            // Metallic body with bolts and panel lines
+            ctx.save();
+            ctx.shadowColor = 'rgba(0,0,0,0.18)';
+            ctx.shadowBlur = 7;
+            ctx.lineWidth = 2.2;
+            ctx.strokeStyle = '#6e7b8b';
+            this.roundRect(ctx, this.x, this.y + bounceOffset, this.width, this.height, 10);
+            ctx.stroke();
+            ctx.restore();
+
+            // Metallic body gradient
+            const grad = ctx.createLinearGradient(this.x, this.y, this.x, this.y + this.height);
+            grad.addColorStop(0, '#e0e6ed');
+            grad.addColorStop(0.3, '#b0bec5');
+            grad.addColorStop(0.7, '#90a4ae');
+            grad.addColorStop(1, '#607d8b');
+            ctx.fillStyle = grad;
+            this.roundRect(ctx, this.x, this.y + bounceOffset, this.width, this.height, 10);
+            ctx.fill();
+
+            // Bolts (corners)
+            ctx.save();
+            ctx.fillStyle = '#b0bec5';
+            const boltR = 3;
+            ctx.beginPath(); ctx.arc(this.x + 7, this.y + 7 + bounceOffset, boltR, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.arc(this.x + this.width - 7, this.y + 7 + bounceOffset, boltR, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.arc(this.x + 7, this.y + this.height - 7 + bounceOffset, boltR, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.arc(this.x + this.width - 7, this.y + this.height - 7 + bounceOffset, boltR, 0, Math.PI * 2); ctx.fill();
+            ctx.restore();
+
+            // Antenna
+            ctx.save();
+            ctx.strokeStyle = '#b0bec5';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(this.x + this.width / 2, this.y + bounceOffset - 8);
+            ctx.lineTo(this.x + this.width / 2, this.y + bounceOffset + 4);
+            ctx.stroke();
+            // Antenna tip
+            ctx.beginPath();
+            ctx.arc(this.x + this.width / 2, this.y + bounceOffset - 8, 3, 0, Math.PI * 2);
+            ctx.fillStyle = '#ffec40';
+            ctx.shadowColor = '#fffde4';
+            ctx.shadowBlur = 8;
+            ctx.fill();
+            ctx.restore();
+
+            // Visor (digital face)
+            ctx.save();
+            ctx.fillStyle = '#263238';
+            ctx.globalAlpha = 0.93;
+            ctx.fillRect(this.x + 8, this.y + 15 + bounceOffset, this.width - 16, 18);
+            ctx.globalAlpha = 1;
+            // Eyes (rectangular, glowing)
+            ctx.fillStyle = '#00e5ff';
+            ctx.shadowColor = '#00e5ff';
+            ctx.shadowBlur = 8;
+            ctx.fillRect(this.x + 15, this.y + 21 + bounceOffset, 7, 6);
+            ctx.fillRect(this.x + this.width - 22, this.y + 21 + bounceOffset, 7, 6);
+            ctx.shadowBlur = 0;
+            // Mouth (LED bar)
+            ctx.fillStyle = '#b2ebf2';
+            ctx.fillRect(this.x + 22, this.y + 30 + bounceOffset, 12, 3);
+            ctx.restore();
+
+            // Panel line (chest)
+            ctx.save();
+            ctx.strokeStyle = '#90a4ae';
+            ctx.lineWidth = 1.2;
+            ctx.beginPath();
+            ctx.moveTo(this.x + 10, this.y + this.height - 18 + bounceOffset);
+            ctx.lineTo(this.x + this.width - 10, this.y + this.height - 18 + bounceOffset);
+            ctx.stroke();
+            ctx.restore();
         }
         // Draw unlimited jump indicator
         ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';

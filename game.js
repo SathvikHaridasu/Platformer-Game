@@ -169,26 +169,47 @@ class Game {
     
     updateSkinShop() {
         document.getElementById('shopCoins').textContent = this.coins;
-        
         // Update skin items
         document.querySelectorAll('.skinItem').forEach(item => {
             const skinId = parseInt(item.dataset.skin);
             const buyBtn = item.querySelector('.buyBtn');
             const equipBtn = item.querySelector('.equipBtn');
-            
+            // Show/hide buttons based on unlock state
             if (this.unlockedSkins.includes(skinId)) {
                 item.classList.remove('locked');
                 if (buyBtn) buyBtn.style.display = 'none';
                 if (equipBtn) {
                     equipBtn.style.display = 'block';
                     equipBtn.textContent = this.selectedSkin === skinId ? 'Equipped' : 'Equip';
+                    if (this.selectedSkin === skinId) {
+                        equipBtn.classList.add('equipped');
+                        item.style.boxShadow = '0 0 0 3px #4ecdc4';
+                    } else {
+                        equipBtn.classList.remove('equipped');
+                        item.style.boxShadow = '';
+                    }
                 }
             } else {
                 item.classList.add('locked');
                 if (buyBtn) buyBtn.style.display = 'block';
-                if (equipBtn) equipBtn.style.display = 'none';
+                if (equipBtn) {
+                    equipBtn.style.display = 'none';
+                    equipBtn.classList.remove('equipped');
+                    item.style.boxShadow = '';
+                }
             }
         });
+        // Re-attach event listeners for all equip buttons
+        document.querySelectorAll('.equipBtn').forEach(btn => {
+            btn.onclick = (e) => {
+                const skinId = parseInt(e.target.dataset.skin);
+                this.equipSkin(skinId);
+            };
+        });
+        // Update player skin in-game if shop is open
+        if (this.player) {
+            this.player.skin = this.selectedSkin;
+        }
     }
     
     updateLevelSelect() {
